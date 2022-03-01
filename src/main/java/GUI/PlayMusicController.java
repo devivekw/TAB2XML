@@ -26,6 +26,7 @@ public class PlayMusicController extends Application {
 	 */
 	private String xmlstr;
 	private static Window convertWindow = new Stage();
+	private float time,temp;
 
 	@FXML
 	Button playButton;
@@ -34,9 +35,13 @@ public class PlayMusicController extends Application {
 	@FXML
 	Slider songSlider;
 	@FXML
-	Slider volSlider;
+	Slider tempSlider;
 	@FXML
-	Label volLabel;
+	Label tempLabelL;
+	@FXML
+	Label tempLabelH;
+	@FXML 
+	Label timeLabel;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -55,20 +60,48 @@ public class PlayMusicController extends Application {
 	public void setMainViewController(MainViewController mvcInput, String str) throws Exception {
 		mvc = mvcInput;
 		xmlstr = str;
-		mp = new XmlPlayer(xmlstr);
+//		System.out.println(mvc.converter.getScore().getModel().getPartList().getScoreParts().get(0).getPartName());
+		mp = new XmlPlayer(xmlstr, mvc.converter.getScore().getModel().getPartList().getScoreParts().get(0).getPartName());
+		timeLabel.setText(String.valueOf(0));
 	}
-
+//	converter.getScore().getModel(); PartList pl = sp.getPartList(); pl.getScoreParts().get(0).getPartName();
 	
 	@FXML
 	public void initialize() throws Exception {
-		Image vol1 = new Image(getClass().getClassLoader().getResource("image_assets/Low-Volume-icon.png").toString());
-		ImageView vol1v = new ImageView(vol1);
-		volLabel.setGraphic(vol1v);
-
-		volSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-
+//		Image vol1 = new Image(getClass().getClassLoader().getResource("image_assets/Low-Volume-icon.png").toString());
+//		ImageView vol1v = new ImageView(vol1);
+//		volLabel.setGraphic(vol1v);
+		
+		songSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+			time = newValue.floatValue()/100.0f;
+			
+			if (mp.getManagedPlayer().isStarted()) {
+				timeLabel.setText(String.valueOf((long)(time*mp.getManagedPlayer().getTickLength())));
+				System.out.println(mp.getManagedPlayer());
+				mp.seek(time);
+//				System.out.println(mp.getManagedPlayer().getTickPosition()/(double)mp.getManagedPlayer().getTickLength()*100.0);
+//				songSlider.setValue(mp.getManagedPlayer().getTickPosition()/(double)mp.getManagedPlayer().getTickLength()*100.0);
+			}
 		});
+		
+		tempSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+			temp = newValue.floatValue();
+			
+			if (mp.getManagedPlayer().isStarted()) {
 
+				try {
+					mp.setTempo(temp);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println(mp.getTempo());
+//				System.out.println(mp.getManagedPlayer().getTickPosition()/(double)mp.getManagedPlayer().getTickLength()*100.0);
+//				songSlider.setValue(mp.getManagedPlayer().getTickPosition()/(double)mp.getManagedPlayer().getTickLength()*100.0);
+				
+			}
+		});
+		
 	}
 
 	@FXML
@@ -76,6 +109,9 @@ public class PlayMusicController extends Application {
 
 		mvc.converter.update();
 		mp.play();
+//		while(mp.getManagedPlayer().isPlaying()) {
+//			songSlider.setValue(mp.getManagedPlayer().getTickPosition()/(double)mp.getManagedPlayer().getTickLength()*100.0);
+//		}
 
 	}
 

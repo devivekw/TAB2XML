@@ -7,11 +7,12 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="tabPlayerPane" maxHeight="269.0" maxWidth="413.0" minHeight="234.0" minWidth="413.0" prefHeight="300.0" prefWidth="413.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.PlayMusicController">
+<AnchorPane fx:id="tabPlayerPane" maxHeight="374.0" maxWidth="554.0" minHeight="234.0" minWidth="413.0" prefHeight="291.0" prefWidth="554.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.PlayMusicController">
    <children>
-      <TextArea fx:id="tabPlayerDisplay" layoutX="17.0" layoutY="22.0" prefHeight="154.0" prefWidth="379.0" />
-      <Button fx:id="playButton" layoutX="17.0" layoutY="230.0" mnemonicParsing="false" onAction="#playMusicHandle" prefHeight="14.0" prefWidth="24.0">
+      <TextArea fx:id="tabPlayerDisplay" layoutX="17.0" layoutY="22.0" prefHeight="154.0" prefWidth="523.0" />
+      <Button fx:id="playButton" layoutX="33.0" layoutY="247.0" mnemonicParsing="false" onAction="#playMusicHandle" prefHeight="14.0" prefWidth="24.0">
          <graphic>
             <ImageView fitHeight="18.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -19,17 +20,21 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Button fx:id="pauseButton" layoutX="65.0" layoutY="230.0" mnemonicParsing="false" onAction="#pauseMusicHandle" prefHeight="14.0" prefWidth="24.0">
+      <Button fx:id="pauseButton" layoutX="81.0" layoutY="247.0" mnemonicParsing="false" onAction="#pauseMusicHandle" prefHeight="14.0" prefWidth="24.0">
          <graphic>
-            <ImageView fitHeight="18.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="20.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../image_assets/Pause-icon.png" />
                </image>
             </ImageView>
          </graphic></Button>
-      <Button layoutX="348.0" layoutY="230.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="47.0" text="Exit" />
-      <Slider fx:id="songSlider" layoutX="18.0" layoutY="193.0" prefHeight="16.0" prefWidth="379.0" />
-      <Slider fx:id="volSlider" layoutX="160.0" layoutY="235.0" />
-      <Label fx:id="volLabel" layoutX="140.0" layoutY="234.0" prefHeight="17.0" prefWidth="23.0" textFill="WHITE" />
+      <Button layoutX="477.0" layoutY="248.0" mnemonicParsing="false" onAction="#exit" prefHeight="26.0" prefWidth="47.0" text="Exit" />
+      <Slider fx:id="songSlider" layoutX="18.0" layoutY="193.0" prefHeight="16.0" prefWidth="523.0" />
+      <Slider fx:id="tempSlider" layoutX="213.0" layoutY="245.0" majorTickUnit="40.0" max="240.0" minorTickCount="1" prefHeight="38.0" prefWidth="155.0" showTickLabels="true" showTickMarks="true" value="120.0" />
+      <Label fx:id="tempLabelL" layoutX="192.0" layoutY="245.0" prefHeight="17.0" prefWidth="21.0" text="BPM" textFill="WHITE">
+         <font>
+            <Font size="10.0" />
+         </font></Label>
+      <Label fx:id="timeLabel" layoutX="500.0" layoutY="209.0" />
    </children>
 </AnchorPane>
