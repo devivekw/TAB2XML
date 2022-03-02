@@ -10,6 +10,8 @@ import org.jfugue.player.ManagedPlayer;
 import org.jfugue.player.Player;
 import org.staccato.StaccatoParserListener;
 
+import javafx.util.Duration;
+
 
 public class XmlPlayer {
 	/**
@@ -117,6 +119,7 @@ public class XmlPlayer {
 		long tk = gPlayer.getManagedPlayer().getTickLength();
 		gPlayer.getManagedPlayer().seek((long)(time*tk));
 	}
+	
 	/**
 	 * set tempo method to change the tempo of the playback
 	 * @param vol
@@ -130,6 +133,8 @@ public class XmlPlayer {
 		gPlayer.getManagedPlayer().finish();
 		gPlayer.getManagedPlayer().start(gPlayer.getSequence(staccatoPattern));
 		gPlayer.getManagedPlayer().seek(pos);
+//		gPlayer.getSequence(staccatoPattern)
+//		gPlayer.getManagedPlayer().getTickPosition()
 		}
 	}
 	
@@ -142,6 +147,63 @@ public class XmlPlayer {
 		System.out.println(staccatoPattern.getTokens());
 		return temp;
 		
+	}
+	/**
+	 * Method to get the sequences duration in the format HH:MM:SS 
+	 * @return
+	 */
+	public String getDuration() {
+	Duration time= new Duration(gPlayer.getSequence(staccatoPattern).getMicrosecondLength()/1000);
+	
+	int hours = (int) time.toHours();
+    int minutes = (int) time.toMinutes();
+    int seconds = (int) time.toSeconds();
+
+    // Fix the issue with the timer going to 61 and above for seconds, minutes, and hours
+    if (seconds > 59) seconds = seconds % 60;
+    if (minutes > 59) minutes = minutes % 60;
+    if (hours > 59) hours = hours % 60;
+
+    // Don't show the hours unless the song is for an hour or longer
+    if (hours > 0) 
+    	return String.format("%d:%02d:%02d",
+            hours,
+            minutes,
+            seconds);
+    else return String.format("%02d:%02d",
+            minutes,
+            seconds);
+
+	}
+	
+	/**
+	 * Method to get the sequences current in the format HH:MM:SS 
+	 * @return
+	 */
+	public String getCurTime() {
+	double totUS= (double)(gPlayer.getSequence(staccatoPattern).getMicrosecondLength());
+	double cur=totUS*(double) gPlayer.getManagedPlayer().getTickPosition()/gPlayer.getManagedPlayer().getTickLength();
+	Duration time = new Duration(cur/1000);
+	
+	int hours = (int) time.toHours();
+    int minutes = (int) time.toMinutes();
+    int seconds = (int) time.toSeconds();
+
+    // Fix the issue with the timer going to 61 and above for seconds, minutes, and hours
+    if (seconds > 59) seconds = seconds % 60;
+    if (minutes > 59) minutes = minutes % 60;
+    if (hours > 59) hours = hours % 60;
+
+    // Don't show the hours unless the song is for an hour or longer
+    if (hours > 0) 
+    	return String.format("%d:%02d:%02d",
+            hours,
+            minutes,
+            seconds);
+    else return String.format("%02d:%02d",
+            minutes,
+            seconds);
+
 	}
 	
 	/**
