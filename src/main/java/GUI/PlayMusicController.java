@@ -101,9 +101,8 @@ public class PlayMusicController extends Application {
 	            @Override
 	            public void changed(ObservableValue<? extends Boolean> observableValue, Boolean wasChanging, Boolean isChanging) {
 	            	time = (float)songSlider.getValue()/100.0f;
-	                // Once the slider has stopped changing (the user lets go of the slider ball) then set the video to this time.
 	                if (!isChanging) {
-	                    // seek() seeks the player to a new time. Note that this has no effect while the player's  status is stopped or the duration is indefinite.
+	                   
 	                   mp.seek(time);
 	                }
 	            }
