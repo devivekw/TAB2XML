@@ -1,7 +1,10 @@
 package draw.score;
 
+
 import java.util.ArrayList;
+
 import java.util.HashMap;
+
 import java.util.List;
 
 import GUI.MainViewController;
@@ -16,6 +19,7 @@ import javafx.scene.shape.QuadCurve;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import models.Part;
+
 import models.measure.note.Note;
 
 public class DrawDrumNotes {
@@ -27,7 +31,9 @@ public class DrawDrumNotes {
 
 	}
 	
+
 	//draw based on 2D array, to be deleted
+
 	public void draw(MainViewController mvc,Group box, int[][] notesPositionList) throws TXMLException {
 		int noteHeightDrum = 0;
 		// get clef	
@@ -76,6 +82,7 @@ public class DrawDrumNotes {
 
 	}
 	
+
 	public void drawNote(int horizontalPosition, int stepOctave, int rowIndex) {
 		Line noteLine = new Line(135 + 25.0 * horizontalPosition, 
 				210 - 5.0 * stepOctave + 90 * rowIndex,
@@ -269,4 +276,5 @@ public class DrawDrumNotes {
 		return this.group;
 	}
 	
+
 }

@@ -29,11 +29,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 
+
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+
 
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
@@ -46,7 +48,9 @@ import javafx.stage.StageStyle;
 import javafx.stage.Window;
 import javafx.scene.paint.Color;
 import models.Part;
+
 import models.measure.note.Note;
+
 import models.measure.note.Notehead;
 import models.part_list.PartList;
 import models.part_list.ScorePart;
@@ -59,6 +63,7 @@ public class PrevSheetController extends Application {
 	 * MainViewController object to store parent mvc instance
 	 */
 	private MainViewController mvc;
+
 
 	/**
 	 * XmlPlayer object to use xmlplayer functionality
@@ -99,6 +104,7 @@ public class PrevSheetController extends Application {
 	@FXML
 	ScrollPane scrollPane;
 
+
 	// public VBox myVBox;
 
 	public String clef;
@@ -110,6 +116,7 @@ public class PrevSheetController extends Application {
 	DrawDrumNotes drawDrumNotes = new DrawDrumNotes();
 	DrawGuitarNotes drawGuitarNotes = new DrawGuitarNotes();
 	@FXML
+
 
 
 	public void initialize() {
@@ -168,7 +175,15 @@ public class PrevSheetController extends Application {
 		});
 
 
+
+
+
+
+		mvc = mvcInput;
+
+
 	}
+
 
 
 	@Override
@@ -198,8 +213,7 @@ public class PrevSheetController extends Application {
 		Text instrumentNameTitle = new Text(450, 100, instrumentName);
 		instrumentNameTitle.setFont(Font.font("Verdana", 50));
 		Group box = new Group();
-		//drawDrumNote.getGroup
-		Group drawing=new Group();
+    Group drawing=new Group();
 		box.getChildren().add(instrumentNameTitle);
 		drawing.getChildren().add(instrumentNameTitle);
 		// Draw Staff
@@ -207,22 +221,26 @@ public class PrevSheetController extends Application {
 			DrumStaff drumStaff = new DrumStaff();
 			drumStaff.draw(drawing, 0);
 			int[][] notesPositionList = drumNotesList.notesList(mvc);
+
 			//hashmap of drum notes map
 			HashMap <Integer, List<Note>>drumNotesMap = drumNotesList.getDrumNotesMap();
 			//draw with 2D array
 			//drawDrumNotes.draw(mvc,box, notesPositionList);
 			drawDrumNotes.drawEverything(drumNotesMap,mvc);
 			drawing=drawDrumNotes.getDrawing();
+
 			
 		} else if (instrumentName.contains("Guitar")) {
 			GuitarStaff guitarStaff = new GuitarStaff();
 			guitarStaff.draw(drawing, 0);
 			int[][] notesPositionList = guitarNotesList.notesList(mvc);
+
 			drawGuitarNotes.draw(mvc,drawing, notesPositionList);
+
 		}
 
 
-		scrollPane.setContent(drawing);
+		scrollPane.setContent(box);
 		scrollPane.setPannable(true);
 		
 //		Player initialization
@@ -236,7 +254,9 @@ public class PrevSheetController extends Application {
 
 
 
+
 	public String getInstrumentName(Score score) throws TXMLException {
+
 
 		String instrumentName = score.getModel().getPartList().getScoreParts().get(0).getPartName();
 		return instrumentName;
@@ -345,5 +365,6 @@ public class PrevSheetController extends Application {
 		mvc.convertWindow.hide();
 		cancelTimer();
 	}
+
 
 }
